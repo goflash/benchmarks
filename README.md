@@ -8,7 +8,7 @@
 </div>
 
 <p align="center">
-  <strong>🚀 Comprehensive performance benchmarking suite comparing GoFlash against leading Go web frameworks</strong>
+  <strong>🚀 Comprehensive performance benchmarking suite comparing GoFlash against Gin and Fiber.</strong>
 </p>
 
 ---
@@ -497,7 +497,7 @@ Our approach ensures **fair and accurate comparisons**:
 #### Key Metrics
 
 - **RPS (Requests Per Second)**: Primary performance indicator
-- **Latency Distribution**: Response time characteristics  
+- **Latency Distribution**: Response time characteristics
 - **Memory Usage**: Resource consumption patterns
 - **CPU Utilization**: Processing efficiency
 
@@ -507,61 +507,3 @@ Our approach ensures **fair and accurate comparisons**:
 - **Middleware Overhead**: Processing cost of request/response pipeline
 - **Memory Allocation**: Garbage collection and memory management impact
 - **Serialization Speed**: JSON encoding/decoding performance
-
----
-
-## 🤝 Contributing
-
-We welcome contributions to improve the benchmark suite! Here's how you can help:
-
-### 🐛 Reporting Issues
-
-Found a bug or have suggestions? Please [create an issue](../../issues) with:
-
-- **Detailed description** of the problem or enhancement
-- **Steps to reproduce** (if applicable)  
-- **Expected vs actual behavior**
-- **System information** (OS, Go version, hardware)
-
-### 🔧 Development Setup
-
-1. **Fork the repository**
-2. **Clone your fork**: `git clone <your-fork-url>`
-3. **Create feature branch**: `git checkout -b feature/amazing-improvement`
-4. **Make your changes** with appropriate tests
-5. **Submit pull request** with detailed description
-
-### 📋 Guidelines
-
-- **Code Quality**: Follow Go best practices and formatting
-- **Documentation**: Update README and code comments
-- **Testing**: Ensure changes don't break existing functionality
-- **Performance**: Verify changes don't introduce bias
-
-### 🏆 Contributors
-
-Special thanks to all contributors who help make this benchmark suite better!
-
----
-
-<div align="center">
-
-### 📊 Benchmark with Confidence
-
-*This benchmark suite provides the data you need to make informed decisions about Go web framework selection.*
-
-**⭐ Star this repo if you find it useful!**
-
-[![GitHub stars](https://img.shields.io/github/stars/your-username/goflash-benchmarks?style=social)](https://github.com/your-username/goflash-benchmarks/stargazers)
-
----
-
-<small>
-
-**📝 License**: MIT | **🔄 Last Updated**: August 2025 | **📧 Support**: [Create an Issue](../../issues)
-
-Built with ❤️ for the Go community
-
-</small>
-
-</div>

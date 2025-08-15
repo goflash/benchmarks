@@ -1,0 +1,175 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+# Optional args
+YMIN=100000
+SCEN="" # scenario name (simple|middleware|context|json|groups, param, wildcard, deepgroups, mw10)
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --ymin) YMIN="$2"; shift 2 ;;
+    --scenario) SCEN="$2"; shift 2 ;;
+    *) echo "Unknown option: $1"; exit 1 ;;
+  esac
+done
+
+pick_csv() {
+  local scen="$1"
+  if [[ -n "$scen" ]]; then
+    ls -t "results/summary_${scen}_"*.csv 2>/dev/null | head -n1 || true
+  else
+    local combined
+    combined=$(ls -t results/summary_all_*.csv 2>/dev/null | head -n1 || true)
+    if [[ -n "$combined" ]]; then echo "$combined"; return; fi
+    ls -t results/summary_*.csv 2>/dev/null | head -n1 || true
+  fi
+}
+
+latest_csv=$(pick_csv "$SCEN")
+if [[ -z "${latest_csv}" ]]; then
+  echo "No CSV found in results/. Run ./bin/run first." >&2
+  exit 1
+fi
+
+# Expose CSV path and YMIN for python block
+export CSV="${latest_csv}"
+export YMIN
+export SCEN
+
+# Prefer python + matplotlib, but fall back to gnuplot if matplotlib is not installed
+PY=$(command -v python3 || true)
+if [[ -n "$PY" ]] && "$PY" -c 'import matplotlib; import matplotlib.pyplot as plt' >/dev/null 2>&1; then
+  "$PY" - <<'PY'
+import csv, os
+import statistics as stats
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
+csv_path = os.environ.get('CSV')
+ymin = float(os.environ.get('YMIN', '100000'))
+
+rows=[]
+with open(csv_path) as f:
+    rows = list(csv.DictReader(f))
+
+if not rows:
+    raise SystemExit('No data rows in CSV: ' + csv_path)
+
+# Detect combined vs single-scenario CSV by headers
+is_combined = 'scenario' in rows[0]
+
+# Create RPS chart(s) as before, but also compute a summary table using p90 as approximation if p95 missing
+summary_lines = []
+
+def write_table(path, rows):
+    cols = ['scenario','framework','requests_per_sec','avg_ms','p50_ms','p90_ms','p99_ms']
+    with open(path, 'w') as f:
+        f.write(','.join(cols)+'\n')
+        for r in rows:
+            f.write(','.join(r.get(c,'') for c in cols)+'\n')
+
+if is_combined:
+    # grouped bars by scenario
+    scenarios = list(dict.fromkeys([r['scenario'] for r in rows]))
+    frameworks = ['flash','gin','gofiber']
+    data = {s: {fw:0.0 for fw in frameworks} for s in scenarios}
+    for r in rows:
+        try:
+            data[r['scenario']][r['framework']] = float(r['requests_per_sec'])
+        except: pass
+    x = range(len(scenarios))
+    width = 0.25
+    fig, ax = plt.subplots(figsize=(12,5))
+    colors = {'flash':'#4caf50','gin':'#2196f3','gofiber':'#ff9800'}
+    for i, fw in enumerate(frameworks):
+        ax.bar([xx + (i-1)*width for xx in x], [data[s][fw] for s in scenarios], width, label=fw, color=colors.get(fw))
+    ax.set_title('Requests per second by scenario')
+    ax.set_ylabel('req/s')
+    ax.set_xticks([xx for xx in x], scenarios)
+    ax.grid(axis='y', linestyle='--', alpha=0.4)
+    all_vals = [v for s in scenarios for v in data[s].values()]
+    if all_vals:
+        ymax = max(all_vals) * 1.05
+        ymax = max(ymax, ymin * 1.01)
+        ax.set_ylim(ymin, ymax)
+    ax.legend(title='framework')
+    out = os.path.join(os.path.dirname(csv_path), os.path.basename(csv_path).replace('.csv', '_rps.png'))
+    fig.tight_layout(); fig.savefig(out, dpi=160)
+    print('Wrote', out)
+
+    # Summary CSV (p90 as proxy for p95 median presentation)
+    summary = []
+    for s in scenarios:
+        for fw in frameworks:
+            # pick row for the pair
+            for r in rows:
+                if r['scenario']==s and r['framework']==fw:
+                    summary.append(r)
+                    break
+    table_path = os.path.join(os.path.dirname(csv_path), os.path.basename(csv_path).replace('.csv', '_summary.csv'))
+    write_table(table_path, summary)
+    print('Wrote', table_path)
+else:
+    labels = []
+    rps = []
+    for r in rows:
+        try:
+            rps.append(float(r.get('requests_per_sec','')))
+            labels.append(r.get('framework'))
+        except: pass
+    if not rps:
+        raise SystemExit('No numeric data rows in CSV: ' + csv_path)
+    plt.figure(figsize=(8,4))
+    plt.bar(labels, rps, color=['#4caf50','#2196f3','#ff9800'])
+    plt.title('Requests per second')
+    plt.ylabel('req/s')
+    plt.grid(axis='y', linestyle='--', alpha=0.4)
+    ymax = max(rps) * 1.05
+    ymax = max(ymax, ymin * 1.01)
+    plt.ylim(bottom=ymin, top=ymax)
+    out = os.path.join(os.path.dirname(csv_path), os.path.basename(csv_path).replace('.csv', '_rps.png'))
+    plt.tight_layout(); plt.savefig(out, dpi=160)
+    print('Wrote', out)
+
+    table_path = os.path.join(os.path.dirname(csv_path), os.path.basename(csv_path).replace('.csv', '_summary.csv'))
+    write_table(table_path, rows)
+    print('Wrote', table_path)
+PY
+  exit 0
+fi
+
+# gnuplot fallback
+if command -v gnuplot >/dev/null 2>&1; then
+  if [[ "${latest_csv}" == *"summary_all_"* ]]; then
+    # Auto-split combined CSV into per-scenario plots
+    for scen in simple middleware context json groups param wildcard deepgroups mw10; do
+      tmp_filtered="${latest_csv%.csv}_${scen}_filtered.csv"
+      # Keep only numeric req/s rows for this scenario
+      awk -F, -v s="$scen" 'NR>1 && $1==s && $3 ~ /^[0-9.]+$/ {print $2","$3}' "${latest_csv}" > "${tmp_filtered}" || true
+      if [[ -s "${tmp_filtered}" ]]; then
+        out_png="${latest_csv%.csv}_${scen}_rps.png"
+        gnuplot -e "YMIN=${YMIN}; set terminal png size 800,400; set output '${out_png}'; set boxwidth 0.5; set style fill solid; set title 'Requests per second (${scen})'; set grid ytics; set datafile separator ','; set yrange [YMIN:*]; plot '${tmp_filtered}' using 2:xtic(1) with boxes lc rgb '#2196f3' notitle"
+        echo "Wrote ${out_png}"
+      else
+        echo "No numeric data for scenario '${scen}' in ${latest_csv}, skipped plotting." >&2
+      fi
+    done
+    exit 0
+  fi
+  # Single-scenario CSV: filter header and invalid rows
+  out_png="${latest_csv%.csv}_rps.png"
+  tmp_filtered="${latest_csv%.csv}_filtered.csv"
+  awk -F, 'NR>1 && $3 ~ /^[0-9.]+$/ {print $2","$3}' "${latest_csv}" > "${tmp_filtered}" || true
+  if [[ ! -s "${tmp_filtered}" ]]; then
+    echo "No numeric data to plot in ${latest_csv}" >&2
+    exit 1
+  fi
+  gnuplot -e "YMIN=${YMIN}; set terminal png size 800,400; set output '${out_png}'; set boxwidth 0.5; set style fill solid; set title 'Requests per second'; set grid ytics; set datafile separator ','; set yrange [YMIN:*]; plot '${tmp_filtered}' using 2:xtic(1) with boxes lc rgb '#2196f3' notitle"
+  echo "Wrote ${out_png}"
+  exit 0
+fi
+
+echo "No matplotlib (python3) or gnuplot found. Install one to plot graphs." >&2
+exit 1

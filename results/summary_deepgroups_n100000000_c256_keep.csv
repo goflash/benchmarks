@@ -1,0 +1,4 @@
+scenario,framework,requests_per_sec,avg_ms,p50_ms,p90_ms,p99_ms,transfer_kbps
+deepgroups,flash,255915.31,1.757,0.614,4.891,11.649,29991.95
+deepgroups,gin,240738.51,1.842,0.568,5.421,11.507,28211.20
+deepgroups,gofiber,211548.44,3.331,0.535,6.903,53.098,24793.07

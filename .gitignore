@@ -1,0 +1,7 @@
+build/
+logs/
+results/raw/
+.venv/
+*.pyc
+*.pyo
+__pycache__/

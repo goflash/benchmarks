@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+mkdir -p logs
+
+# Optimize child servers
+export GIN_MODE=release
+export FIBER_PREFORK=1
+
+# Raise file-descriptor limit for server processes (best effort)
+ulimit -n 65536 || true
+
+BIN_FLASH=./build/flash
+BIN_GIN=./build/gin
+BIN_FIBER=./build/gofiber
+
+if [[ ! -x "$BIN_FLASH" || ! -x "$BIN_GIN" || ! -x "$BIN_FIBER" ]]; then
+  echo "Binaries not found. Run ./bin/build first." >&2
+  exit 1
+fi
+
+start_one() {
+  local name="$1"; shift
+  local bin="$1"; shift
+  local pidfile="logs/${name}.pid"
+
+  # If already running, skip
+  if [[ -f "$pidfile" ]] && kill -0 "$(cat "$pidfile" 2>/dev/null)" 2>/dev/null; then
+    echo "$name already running (pid $(cat "$pidfile"))"
+    return 0
+  fi
+
+  "$bin" > "logs/${name}.log" 2>&1 & echo $! > "$pidfile"
+  sleep 0.1
+  if ! kill -0 "$(cat "$pidfile" 2>/dev/null)" 2>/dev/null; then
+    echo "Failed to start $name. See logs/${name}.log" >&2
+    return 1
+  fi
+}
+
+wait_healthy() {
+  local url="$1"; local name="$2"; local tries=100
+  until curl -fsS "$url" >/dev/null 2>&1; do
+    ((tries--)) || { echo "Timeout waiting for $name at $url" >&2; return 1; }
+    sleep 0.1
+  done
+}
+
+start_one flash "$BIN_FLASH"
+start_one gin   "$BIN_GIN"
+start_one gofiber "$BIN_FIBER"
+
+# Wait for health on /ping
+wait_healthy "http://127.0.0.1:18080/ping" flash || true
+wait_healthy "http://127.0.0.1:18081/ping" gin || true
+wait_healthy "http://127.0.0.1:18082/ping" gofiber || true
+
+echo "Started:"
+echo "  Flash  : http://127.0.0.1:18080/ping"
+echo "  Gin    : http://127.0.0.1:18081/ping"
+echo "  Fiber  : http://127.0.0.1:18082/ping"

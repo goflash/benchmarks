@@ -1,0 +1,4 @@
+scenario,framework,requests_per_sec,avg_ms,p50_ms,p90_ms,p99_ms,transfer_kbps
+middleware,flash,266754.70,1.592,0.649,4.246,10.620,43763.72
+middleware,gin,246655.08,1.722,0.608,4.860,10.687,34927.61
+middleware,gofiber,210848.29,3.364,0.549,6.887,53.563,29857.79

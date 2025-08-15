@@ -1,0 +1,4 @@
+scenario,framework,requests_per_sec,avg_ms,p50_ms,p90_ms,p99_ms,transfer_kbps
+simple,flash,240789.68,1.725,0.606,4.898,10.449,28217.35
+simple,gin,231238.91,1.847,0.580,5.494,11.073,27099.12
+simple,gofiber,209454.31,3.129,0.571,5.866,51.395,24545.29

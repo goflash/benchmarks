@@ -1,0 +1,4 @@
+scenario,framework,requests_per_sec,avg_ms,p50_ms,p90_ms,p99_ms,transfer_kbps
+wildcard,flash,256240.41,1.756,0.631,4.849,11.844,34283.52
+wildcard,gin,246912.93,1.919,0.597,5.513,12.878,33034.25
+wildcard,gofiber,219208.35,4.621,0.463,10.882,75.080,29112.32

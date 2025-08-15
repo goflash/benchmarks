@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Build Flash, Gin, Fiber servers
+cd "$(dirname "$0")/.."
+
+./bin/stop || true
+./bin/build
+./bin/start
+# Run benchmarks; if they fail, stop servers, print message, but keep script exit code 0
+if ! ./bin/run -n 100000000 -c 256 -k --stop; then
+  echo 'Failed to run (benchmarks had errors), servers were stopped.'
+fi
+./bin/stop || true
+./bin/plot || true

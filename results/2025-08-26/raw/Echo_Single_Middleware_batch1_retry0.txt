@@ -1,0 +1,9 @@
+Running 10s test @ http://127.0.0.1:17783/mw/ping
+  64 threads and 256 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     3.43ms    6.63ms 125.12ms   90.83%
+    Req/Sec     3.28k     0.94k   27.86k    80.14%
+  2088540 requests in 10.03s, 288.81MB read
+  Socket errors: connect 0, read 13, write 0, timeout 0
+Requests/sec: 208281.16
+Transfer/sec:     28.80MB

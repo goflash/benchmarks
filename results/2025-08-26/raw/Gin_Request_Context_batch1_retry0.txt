@@ -1,0 +1,8 @@
+Running 10s test @ http://127.0.0.1:17781/context
+  64 threads and 256 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     3.76ms    7.20ms 144.12ms   90.17%
+    Req/Sec     3.36k     0.94k   11.85k    75.46%
+  2142914 requests in 10.02s, 259.54MB read
+Requests/sec: 213838.43
+Transfer/sec:     25.90MB

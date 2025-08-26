@@ -1,0 +1,62 @@
+{
+  "Fiber v3": {
+    "avg_rps": 283816.42,
+    "std_rps": 17341.43,
+    "avg_latency_ms": 0.0,
+    "avg_p99_ms": 0.0,
+    "best_scenario": "Simple Ping/Pong",
+    "worst_scenario": "JSON Binding",
+    "consistency_score": 0.939,
+    "total_tests": 9
+  },
+  "Echo": {
+    "avg_rps": 215519.17,
+    "std_rps": 9850.4,
+    "avg_latency_ms": 0.0,
+    "avg_p99_ms": 0.0,
+    "best_scenario": "URL Path Parameter",
+    "worst_scenario": "JSON Binding",
+    "consistency_score": 0.954,
+    "total_tests": 9
+  },
+  "Fiber": {
+    "avg_rps": 280118.3,
+    "std_rps": 11937.68,
+    "avg_latency_ms": 0.0,
+    "avg_p99_ms": 0.0,
+    "best_scenario": "Request Context",
+    "worst_scenario": "JSON Binding",
+    "consistency_score": 0.957,
+    "total_tests": 9
+  },
+  "Chi": {
+    "avg_rps": 220362.39,
+    "std_rps": 10211.08,
+    "avg_latency_ms": 0.0,
+    "avg_p99_ms": 0.0,
+    "best_scenario": "Simple Ping/Pong",
+    "worst_scenario": "JSON Binding",
+    "consistency_score": 0.954,
+    "total_tests": 9
+  },
+  "GoFlash": {
+    "avg_rps": 212778.89,
+    "std_rps": 19260.24,
+    "avg_latency_ms": 0.0,
+    "avg_p99_ms": 0.0,
+    "best_scenario": "Simple Ping/Pong",
+    "worst_scenario": "JSON Binding",
+    "consistency_score": 0.909,
+    "total_tests": 9
+  },
+  "Gin": {
+    "avg_rps": 221379.34,
+    "std_rps": 10406.77,
+    "avg_latency_ms": 0.0,
+    "avg_p99_ms": 0.0,
+    "best_scenario": "Simple Ping/Pong",
+    "worst_scenario": "JSON Binding",
+    "consistency_score": 0.953,
+    "total_tests": 9
+  }
+}

@@ -1,0 +1,9 @@
+Running 10s test @ http://127.0.0.1:17781/g1/g2/g3/g4/g5/g6/g7/g8/g9/g10/ping
+  64 threads and 256 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     3.40ms    5.93ms  80.94ms   88.38%
+    Req/Sec     3.56k   766.60     7.42k    68.96%
+  2286578 requests in 10.11s, 261.68MB read
+  Socket errors: connect 0, read 88, write 0, timeout 1
+Requests/sec: 226190.42
+Transfer/sec:     25.89MB

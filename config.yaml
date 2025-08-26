@@ -1,0 +1,190 @@
+# Benchmark Framework Configuration
+# This file contains all configuration for the benchmarking framework
+
+# Framework configurations
+frameworks:
+  flash:
+    name: "GoFlash"
+    version: "latest"
+    port: 17780
+    url: "http://127.0.0.1:17780"
+    build_path: "./frameworks/flash"
+    binary_name: "flash"
+    description: "High-performance, minimalist Go web framework"
+
+  gin:
+    name: "Gin"
+    version: "latest"
+    port: 17781
+    url: "http://127.0.0.1:17781"
+    build_path: "./frameworks/gin"
+    binary_name: "gin"
+    description: "Fast HTTP web framework with martini-like API"
+
+  gofiber:
+    name: "Fiber"
+    version: "v2.52.0"
+    port: 17782
+    url: "http://127.0.0.1:17782"
+    build_path: "./frameworks/gofiber"
+    binary_name: "gofiber"
+    description: "Express-inspired web framework built on Fasthttp"
+
+  gofiber3:
+    name: "Fiber v3"
+    version: "v3.0.0-rc.1"
+    port: 17785
+    url: "http://127.0.0.1:17785"
+    build_path: "./frameworks/gofiber3"
+    binary_name: "gofiber3"
+    description: "Express-inspired web framework built on Fasthttp (v3 RC)"
+
+  echo:
+    name: "Echo"
+    version: "v4.11.4"
+    port: 17783
+    url: "http://127.0.0.1:17783"
+    build_path: "./frameworks/echo"
+    binary_name: "echo"
+    description: "High performance, extensible, minimalist Go web framework"
+
+  chi:
+    name: "Chi"
+    version: "v5.0.11"
+    port: 17784
+    url: "http://127.0.0.1:17784"
+    build_path: "./frameworks/chi"
+    binary_name: "chi"
+    description: "Lightweight, expressive and scalable HTTP router"
+
+# Test scenarios configuration
+scenarios:
+  simple:
+    name: "Simple Ping/Pong"
+    method: "GET"
+    path: "/ping"
+    description: "Basic endpoint response"
+    expected_status: 200
+
+  param:
+    name: "URL Path Parameter"
+    method: "GET"
+    path: "/param/abc123"
+    description: "Dynamic route parsing"
+    expected_status: 200
+
+  context:
+    name: "Request Context"
+    method: "GET"
+    path: "/context"
+    description: "Context read/write operations"
+    expected_status: 200
+
+  json:
+    name: "JSON Binding"
+    method: "POST"
+    path: "/json"
+    description: "Request deserialization + validation"
+    expected_status: 200
+
+  wildcard:
+    name: "Wildcard Routing"
+    method: "GET"
+    path: "/wildcard/some/long/path/here"
+    description: "Trailing wildcard route matching"
+    expected_status: 200
+
+  groups:
+    name: "Route Groups"
+    method: "GET"
+    path: "/api/v1/group/ping"
+    description: "Basic route organization"
+    expected_status: 200
+
+  deepgroups:
+    name: "Deep Route Groups"
+    method: "GET"
+    path: "/g1/g2/g3/g4/g5/g6/g7/g8/g9/g10/ping"
+    description: "10-level nested groups"
+    expected_status: 200
+
+  middleware:
+    name: "Single Middleware"
+    method: "GET"
+    path: "/mw/ping"
+    description: "Basic middleware processing"
+    expected_status: 200
+
+  mw10:
+    name: "Middleware Chain"
+    method: "GET"
+    path: "/mw10/ping"
+    description: "10-middleware processing chain"
+    expected_status: 200
+
+# Benchmark tool configuration
+benchmark:
+  tool: "wrk"
+  threads: 64
+  timeout: "10s"
+  keep_alive: true
+
+  # Default test parameters
+  # Note: If default_requests > 0, it will be used instead of default_duration
+  default_requests: 0 # Set to 0 to use duration-based testing
+  default_connections: 0
+  default_duration: "10s"
+
+  # Batching configuration
+  batches: 1
+  max_retries: 10
+  retry_sleep: 10
+  batch_pause: 60
+
+  # Error tolerance
+  allow_socket_errors: 1000
+  allow_non_2xx: 0
+
+  # Health check configuration
+  health_check_timeout: 30
+  health_check_interval: 0.1
+
+# Output configuration
+output:
+  results_dir: "results"
+  logs_dir: "logs"
+  date_format: "2006-01-02"
+
+  # CSV output settings
+  csv_include_headers: true
+  csv_delimiter: ","
+
+  # Progress display
+  show_progress: true
+  progress_interval: 1
+
+# System configuration
+system:
+  # File descriptor limits
+  max_file_descriptors: 65536
+
+  # Process management
+  process_timeout: 72000  # 20 hours for full benchmark suite
+  cleanup_on_exit: true
+
+  # Resource monitoring
+  monitor_resources: true
+  resource_interval: 5
+
+# Process management configuration
+process:
+  # Restart policy
+  max_restarts: 10
+  restart_delay_seconds: 5
+  backoff_multiplier: 1.5
+  max_restart_delay_seconds: 60
+
+  # Health monitoring
+  health_check_interval_seconds: 5
+  startup_timeout_seconds: 30
+  shutdown_timeout_seconds: 10

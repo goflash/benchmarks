@@ -1,0 +1,234 @@
+{
+  "generated_at": "2025-08-26T22:16:10.815716",
+  "summary": {
+    "total_frameworks": 6,
+    "total_scenarios": 9,
+    "top_performer": "Fiber v3",
+    "performance_gap": 71037.52999999997
+  },
+  "ranking": {
+    "Fiber v3": {
+      "avg_rps": 283816.42,
+      "std_rps": 17341.43,
+      "min_rps": 240999.2,
+      "max_rps": 303030.48,
+      "rank": 1
+    },
+    "Fiber": {
+      "avg_rps": 280118.3,
+      "std_rps": 11937.68,
+      "min_rps": 250017.79,
+      "max_rps": 290844.84,
+      "rank": 2
+    },
+    "Gin": {
+      "avg_rps": 221379.34,
+      "std_rps": 10406.77,
+      "min_rps": 197620.5,
+      "max_rps": 232124.56,
+      "rank": 3
+    },
+    "Chi": {
+      "avg_rps": 220362.39,
+      "std_rps": 10211.08,
+      "min_rps": 200061.61,
+      "max_rps": 235504.69,
+      "rank": 4
+    },
+    "Echo": {
+      "avg_rps": 215519.17,
+      "std_rps": 9850.4,
+      "min_rps": 196234.32,
+      "max_rps": 231229.72,
+      "rank": 5
+    },
+    "GoFlash": {
+      "avg_rps": 212778.89,
+      "std_rps": 19260.24,
+      "min_rps": 162382.25,
+      "max_rps": 225325.43,
+      "rank": 6
+    }
+  },
+  "scenario_comparison": {
+    "Deep Route Groups": {
+      "Chi": 211424.41,
+      "Echo": 214401.77,
+      "Fiber": 288074.82,
+      "Fiber v3": 292411.82,
+      "Gin": 226190.42,
+      "GoFlash": 219780.38,
+      "best_framework": "Fiber v3",
+      "best_rps": 292411.82,
+      "worst_rps": 211424.41,
+      "rps_range": 80987.41,
+      "performance_gap_pct": 38.3
+    },
+    "JSON Binding": {
+      "Chi": 200061.61,
+      "Echo": 196234.32,
+      "Fiber": 250017.79,
+      "Fiber v3": 240999.2,
+      "Gin": 197620.5,
+      "GoFlash": 162382.25,
+      "best_framework": "Fiber",
+      "best_rps": 250017.79,
+      "worst_rps": 162382.25,
+      "rps_range": 87635.54000000001,
+      "performance_gap_pct": 54.0
+    },
+    "Middleware Chain": {
+      "Chi": 221084.97,
+      "Echo": 220603.13,
+      "Fiber": 286426.94,
+      "Fiber v3": 282416.67,
+      "Gin": 228308.81,
+      "GoFlash": 219793.36,
+      "best_framework": "Fiber",
+      "best_rps": 286426.94,
+      "worst_rps": 219793.36,
+      "rps_range": 66633.58000000002,
+      "performance_gap_pct": 30.3
+    },
+    "Request Context": {
+      "Chi": 222302.09,
+      "Echo": 222594.32,
+      "Fiber": 290844.84,
+      "Fiber v3": 284704.69,
+      "Gin": 213838.43,
+      "GoFlash": 212947.87,
+      "best_framework": "Fiber",
+      "best_rps": 290844.84,
+      "worst_rps": 212947.87,
+      "rps_range": 77896.97000000003,
+      "performance_gap_pct": 36.6
+    },
+    "Route Groups": {
+      "Chi": 221712.03,
+      "Echo": 214485.41,
+      "Fiber": 280867.11,
+      "Fiber v3": 293635.12,
+      "Gin": 223625.5,
+      "GoFlash": 221999.75,
+      "best_framework": "Fiber v3",
+      "best_rps": 293635.12,
+      "worst_rps": 214485.41,
+      "rps_range": 79149.70999999999,
+      "performance_gap_pct": 36.9
+    },
+    "Simple Ping/Pong": {
+      "Chi": 235504.69,
+      "Echo": 219567.06,
+      "Fiber": 280031.29,
+      "Fiber v3": 303030.48,
+      "Gin": 232124.56,
+      "GoFlash": 225325.43,
+      "best_framework": "Fiber v3",
+      "best_rps": 303030.48,
+      "worst_rps": 219567.06,
+      "rps_range": 83463.41999999998,
+      "performance_gap_pct": 38.0
+    },
+    "Single Middleware": {
+      "Chi": 216871.02,
+      "Echo": 208281.16,
+      "Fiber": 282357.56,
+      "Fiber v3": 283457.76,
+      "Gin": 218489.55,
+      "GoFlash": 214172.29,
+      "best_framework": "Fiber v3",
+      "best_rps": 283457.76,
+      "worst_rps": 208281.16,
+      "rps_range": 75176.6,
+      "performance_gap_pct": 36.1
+    },
+    "URL Path Parameter": {
+      "Chi": 228241.79,
+      "Echo": 231229.72,
+      "Fiber": 283202.23,
+      "Fiber v3": 289273.55,
+      "Gin": 225710.79,
+      "GoFlash": 219170.26,
+      "best_framework": "Fiber v3",
+      "best_rps": 289273.55,
+      "worst_rps": 219170.26,
+      "rps_range": 70103.28999999998,
+      "performance_gap_pct": 32.0
+    },
+    "Wildcard Routing": {
+      "Chi": 226058.91,
+      "Echo": 212275.62,
+      "Fiber": 279242.16,
+      "Fiber v3": 284418.46,
+      "Gin": 226505.5,
+      "GoFlash": 219438.46,
+      "best_framework": "Fiber v3",
+      "best_rps": 284418.46,
+      "worst_rps": 212275.62,
+      "rps_range": 72142.84000000003,
+      "performance_gap_pct": 34.0
+    }
+  },
+  "framework_analysis": {
+    "Fiber v3": {
+      "avg_rps": 283816.42,
+      "std_rps": 17341.43,
+      "avg_latency_ms": 0.0,
+      "avg_p99_ms": 0.0,
+      "best_scenario": "Simple Ping/Pong",
+      "worst_scenario": "JSON Binding",
+      "consistency_score": 0.939,
+      "total_tests": 9
+    },
+    "Echo": {
+      "avg_rps": 215519.17,
+      "std_rps": 9850.4,
+      "avg_latency_ms": 0.0,
+      "avg_p99_ms": 0.0,
+      "best_scenario": "URL Path Parameter",
+      "worst_scenario": "JSON Binding",
+      "consistency_score": 0.954,
+      "total_tests": 9
+    },
+    "Fiber": {
+      "avg_rps": 280118.3,
+      "std_rps": 11937.68,
+      "avg_latency_ms": 0.0,
+      "avg_p99_ms": 0.0,
+      "best_scenario": "Request Context",
+      "worst_scenario": "JSON Binding",
+      "consistency_score": 0.957,
+      "total_tests": 9
+    },
+    "Chi": {
+      "avg_rps": 220362.39,
+      "std_rps": 10211.08,
+      "avg_latency_ms": 0.0,
+      "avg_p99_ms": 0.0,
+      "best_scenario": "Simple Ping/Pong",
+      "worst_scenario": "JSON Binding",
+      "consistency_score": 0.954,
+      "total_tests": 9
+    },
+    "GoFlash": {
+      "avg_rps": 212778.89,
+      "std_rps": 19260.24,
+      "avg_latency_ms": 0.0,
+      "avg_p99_ms": 0.0,
+      "best_scenario": "Simple Ping/Pong",
+      "worst_scenario": "JSON Binding",
+      "consistency_score": 0.909,
+      "total_tests": 9
+    },
+    "Gin": {
+      "avg_rps": 221379.34,
+      "std_rps": 10406.77,
+      "avg_latency_ms": 0.0,
+      "avg_p99_ms": 0.0,
+      "best_scenario": "Simple Ping/Pong",
+      "worst_scenario": "JSON Binding",
+      "consistency_score": 0.953,
+      "total_tests": 9
+    }
+  }
+}

@@ -1,0 +1,10 @@
+Running 10s test @ http://127.0.0.1:17785/wildcard/some/long/path/here
+  64 threads and 256 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     7.96ms   27.90ms 465.71ms   93.53%
+    Req/Sec     4.55k     3.85k  114.90k    95.21%
+  2872166 requests in 10.10s, 361.56MB read
+  Socket errors: connect 0, read 12, write 0, timeout 0
+  Non-2xx or 3xx responses: 2872166
+Requests/sec: 284418.46
+Transfer/sec:     35.80MB

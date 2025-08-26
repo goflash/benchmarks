@@ -1,4 +1,4 @@
-# ⚡ GoFlash Benchmarks
+# ⚡ Go Web Framework Benchmarks
 
 <div align="center">
   <img src="https://img.shields.io/badge/Go-1.21+-00ADD8?style=for-the-badge&logo=go&logoColor=white" alt="Go Version" />
@@ -8,7 +8,7 @@
 </div>
 
 <p align="center">
-  <strong>🚀 Comprehensive performance benchmarking suite comparing GoFlash against Gin and Fiber.</strong>
+  <strong>🚀 Comprehensive performance benchmarking suite comparing Go web frameworks with atomic, deterministic, and resumable test execution.</strong>
 </p>
 
 ---
@@ -27,15 +27,17 @@
 
 ## 🎯 Overview
 
-This repository contains a comprehensive benchmarking suite designed to evaluate the performance of **GoFlash** against other popular Go web frameworks. Our goal is to provide accurate, reproducible, and meaningful performance comparisons across various real-world scenarios.
+This repository contains a comprehensive benchmarking suite designed to evaluate the performance of **Go web frameworks** with a focus on atomic, deterministic, and resumable test execution. Our goal is to provide accurate, reproducible, and meaningful performance comparisons across various real-world scenarios.
 
 ### 🏆 Frameworks Under Test
 
-| Framework     | Version   | Description                                      |
-| ------------- | --------- | ------------------------------------------------ |
-| **🔥 GoFlash** | Latest    | High-performance, minimalist Go web framework    |
-| **🍸 Gin**     | Latest    | Fast HTTP web framework with martini-like API    |
-| **🕷️ Fiber**   | v3 Beta 5 | Express-inspired web framework built on Fasthttp |
+| Framework     | Version | Description                                               |
+| ------------- | ------- | --------------------------------------------------------- |
+| **🔥 GoFlash** | Latest  | High-performance, minimalist Go web framework             |
+| **🍸 Gin**     | Latest  | Fast HTTP web framework with martini-like API             |
+| **🕷️ Fiber**   | v2.52.0 | Express-inspired web framework built on Fasthttp          |
+| **📢 Echo**    | v4.11.4 | High performance, extensible, minimalist Go web framework |
+| **🔗 Chi**     | v5.0.11 | Lightweight, expressive and scalable HTTP router          |
 
 ## 🏗️ Framework Comparison
 
@@ -44,6 +46,8 @@ This repository contains a comprehensive benchmarking suite designed to evaluate
 - **GoFlash**: Optimized for speed with minimal overhead
 - **Gin**: Battle-tested with excellent middleware ecosystem
 - **Fiber**: Express.js-like API with high performance
+- **Echo**: High performance with extensible middleware
+- **Chi**: Lightweight and expressive routing
 
 ### 🎯 Use Case Alignment
 
@@ -81,8 +85,8 @@ Our benchmark suite covers **9 comprehensive scenarios** that represent common w
 ### 🔧 Benchmarking Tools
 
 - **Load Generator**: [wrk](https://github.com/wg/wrk) HTTP benchmarking tool
-- **Threads**: 11 concurrent threads
-- **Connections**: 256 concurrent connections
+- **Threads**: 4 concurrent threads
+- **Connections**: 50 concurrent connections
 - **Protocol**: HTTP/1.1 with keep-alive
 
 ### 📐 Methodology
@@ -92,26 +96,150 @@ Our benchmark suite covers **9 comprehensive scenarios** that represent common w
 - ✅ Consistent routing patterns and middleware implementation
 - ✅ Multiple test runs for statistical significance
 - ✅ Isolated server processes to prevent interference
+- ✅ Atomic and deterministic test execution
+- ✅ Resume capability from failed runs
 
 > ⚠️ **Note**: Results are indicative and may vary based on workload, configuration, and environment. Always benchmark in your specific use case.
 
 ## 📈 Results
 
-> 📊 **Complete dataset available**: Detailed CSV files and additional metrics can be found in the [`results/`](./results/) directory.
+> 📊 **Complete dataset available**: Detailed CSV files and additional metrics can be found in the [`results/2025-08-26/`](./results/2025-08-26/) directory.
 
-### 🏆 Performance Overview
+### 🏆 Overall Performance Rankings
 
-Our comprehensive benchmarks reveal significant performance differences across frameworks and scenarios. Below are the key findings:
+Our comprehensive benchmarks reveal significant performance differences across frameworks and scenarios. Below are the key findings from **54** total benchmark tests:
 
-<div align="center">
+| 🏆 Rank | Framework | Avg RPS | Min RPS | Max RPS | Tests | Performance |
+|---------|-----------|---------|---------|---------|-------|-------------|
+| 🥇 | **Fiber v3** | 283,816 | 240,999 | 303,030 | 9 | 🔥 **Excellent** |
+| 🥈 | **Fiber** | 280,118 | 250,018 | 290,845 | 9 | ⚡ **Very Good** |
+| 🥉 | **Gin** | 221,379 | 197,620 | 232,125 | 9 | ✅ **Good** |
+| #4 | **Chi** | 220,362 | 200,062 | 235,505 | 9 | 📊 **Baseline** |
+| #5 | **Echo** | 215,519 | 196,234 | 231,230 | 9 | 📊 **Baseline** |
+| #6 | **GoFlash** | 212,779 | 162,382 | 225,325 | 9 | 📊 **Baseline** |
+
 
 ### 📊 Cumulative Performance Comparison
 
-![Cumulative Benchmark Results](./results/all_benchmarks.png)
+<div align="center">
+
+![Cumulative Benchmark Results](./results/2025-08-26/images/all_benchmarks.png)
 
 *Higher bars indicate better performance (requests per second)*
 
 </div>
+
+### 📋 Per-Scenario Performance Analysis
+
+
+#### 📊 Simple Ping/Pong Performance
+
+| 🏆 Rank | Framework | Avg RPS | Performance vs Leader |
+|---------|-----------|---------|----------------------|
+| 🥇 | **Fiber v3** | 303,030 | **100%** (Leader) |
+| 🥈 | **Fiber** | 280,031 | 92.4% of leader |
+| 🥉 | **Chi** | 235,505 | 77.7% of leader |
+| #4 | **Gin** | 232,125 | 76.6% of leader |
+| #5 | **GoFlash** | 225,325 | 74.4% of leader |
+| #6 | **Echo** | 219,567 | 72.5% of leader |
+
+
+#### 📊 Route Groups Performance
+
+| 🏆 Rank | Framework | Avg RPS | Performance vs Leader |
+|---------|-----------|---------|----------------------|
+| 🥇 | **Fiber v3** | 293,635 | **100%** (Leader) |
+| 🥈 | **Fiber** | 280,867 | 95.7% of leader |
+| 🥉 | **Gin** | 223,626 | 76.2% of leader |
+| #4 | **GoFlash** | 222,000 | 75.6% of leader |
+| #5 | **Chi** | 221,712 | 75.5% of leader |
+| #6 | **Echo** | 214,485 | 73.0% of leader |
+
+
+#### 📊 Single Middleware Performance
+
+| 🏆 Rank | Framework | Avg RPS | Performance vs Leader |
+|---------|-----------|---------|----------------------|
+| 🥇 | **Fiber v3** | 283,458 | **100%** (Leader) |
+| 🥈 | **Fiber** | 282,358 | 99.6% of leader |
+| 🥉 | **Gin** | 218,490 | 77.1% of leader |
+| #4 | **Chi** | 216,871 | 76.5% of leader |
+| #5 | **GoFlash** | 214,172 | 75.6% of leader |
+| #6 | **Echo** | 208,281 | 73.5% of leader |
+
+
+#### 📊 URL Path Parameter Performance
+
+| 🏆 Rank | Framework | Avg RPS | Performance vs Leader |
+|---------|-----------|---------|----------------------|
+| 🥇 | **Fiber v3** | 289,274 | **100%** (Leader) |
+| 🥈 | **Fiber** | 283,202 | 97.9% of leader |
+| 🥉 | **Echo** | 231,230 | 79.9% of leader |
+| #4 | **Chi** | 228,242 | 78.9% of leader |
+| #5 | **Gin** | 225,711 | 78.0% of leader |
+| #6 | **GoFlash** | 219,170 | 75.8% of leader |
+
+
+#### 📊 Deep Route Groups Performance
+
+| 🏆 Rank | Framework | Avg RPS | Performance vs Leader |
+|---------|-----------|---------|----------------------|
+| 🥇 | **Fiber v3** | 292,412 | **100%** (Leader) |
+| 🥈 | **Fiber** | 288,075 | 98.5% of leader |
+| 🥉 | **Gin** | 226,190 | 77.4% of leader |
+| #4 | **GoFlash** | 219,780 | 75.2% of leader |
+| #5 | **Echo** | 214,402 | 73.3% of leader |
+| #6 | **Chi** | 211,424 | 72.3% of leader |
+
+
+#### 📊 JSON Binding Performance
+
+| 🏆 Rank | Framework | Avg RPS | Performance vs Leader |
+|---------|-----------|---------|----------------------|
+| 🥇 | **Fiber** | 250,018 | **100%** (Leader) |
+| 🥈 | **Fiber v3** | 240,999 | 96.4% of leader |
+| 🥉 | **Chi** | 200,062 | 80.0% of leader |
+| #4 | **Gin** | 197,620 | 79.0% of leader |
+| #5 | **Echo** | 196,234 | 78.5% of leader |
+| #6 | **GoFlash** | 162,382 | 64.9% of leader |
+
+
+#### 📊 Middleware Chain Performance
+
+| 🏆 Rank | Framework | Avg RPS | Performance vs Leader |
+|---------|-----------|---------|----------------------|
+| 🥇 | **Fiber** | 286,427 | **100%** (Leader) |
+| 🥈 | **Fiber v3** | 282,417 | 98.6% of leader |
+| 🥉 | **Gin** | 228,309 | 79.7% of leader |
+| #4 | **Chi** | 221,085 | 77.2% of leader |
+| #5 | **Echo** | 220,603 | 77.0% of leader |
+| #6 | **GoFlash** | 219,793 | 76.7% of leader |
+
+
+#### 📊 Wildcard Routing Performance
+
+| 🏆 Rank | Framework | Avg RPS | Performance vs Leader |
+|---------|-----------|---------|----------------------|
+| 🥇 | **Fiber v3** | 284,418 | **100%** (Leader) |
+| 🥈 | **Fiber** | 279,242 | 98.2% of leader |
+| 🥉 | **Gin** | 226,506 | 79.6% of leader |
+| #4 | **Chi** | 226,059 | 79.5% of leader |
+| #5 | **GoFlash** | 219,438 | 77.2% of leader |
+| #6 | **Echo** | 212,276 | 74.6% of leader |
+
+
+#### 📊 Request Context Performance
+
+| 🏆 Rank | Framework | Avg RPS | Performance vs Leader |
+|---------|-----------|---------|----------------------|
+| 🥇 | **Fiber** | 290,845 | **100%** (Leader) |
+| 🥈 | **Fiber v3** | 284,705 | 97.9% of leader |
+| 🥉 | **Echo** | 222,594 | 76.5% of leader |
+| #4 | **Chi** | 222,302 | 76.4% of leader |
+| #5 | **Gin** | 213,838 | 73.5% of leader |
+| #6 | **GoFlash** | 212,948 | 73.2% of leader |
+
+
 
 ---
 
@@ -122,13 +250,15 @@ Our comprehensive benchmarks reveal significant performance differences across f
 
 **Test**: Basic HTTP GET response without any processing
 
-![Simple Ping/Pong Results](./results/summary_all_n100000000_c256_keep_simple_rps.png)
+![Simple Ping/Pong Results](./results/2025-08-26/images/simple_ping_pong_rps.png)
 
 **Key Insights**:
 
 - Foundation performance comparison
 - Measures framework overhead
 - Critical for high-throughput applications
+
+**Results**: [CSV Data](./results/2025-08-26/parts/summary_simple.csv)
 
 </details>
 
@@ -137,13 +267,15 @@ Our comprehensive benchmarks reveal significant performance differences across f
 
 **Test**: Dynamic route matching and parameter extraction (`/user/:id`)
 
-![URL Parameter Results](./results/summary_all_n100000000_c256_keep_param_rps.png)
+![URL Parameter Results](./results/2025-08-26/images/url_path_parameter_rps.png)
 
 **Key Insights**:
 
 - RESTful API performance
 - Router efficiency comparison
 - Path parsing overhead analysis
+
+**Results**: [CSV Data](./results/2025-08-26/parts/summary_param.csv)
 
 </details>
 
@@ -152,13 +284,15 @@ Our comprehensive benchmarks reveal significant performance differences across f
 
 **Test**: Writing to and reading from request context
 
-![Context Operations Results](./results/summary_all_n100000000_c256_keep_context_rps.png)
+![Context Operations Results](./results/2025-08-26/images/request_context_rps.png)
 
 **Key Insights**:
 
 - Context management efficiency
 - State preservation performance
 - Middleware communication overhead
+
+**Results**: [CSV Data](./results/2025-08-26/parts/summary_context.csv)
 
 </details>
 
@@ -167,13 +301,15 @@ Our comprehensive benchmarks reveal significant performance differences across f
 
 **Test**: JSON request deserialization with struct binding and validation
 
-![JSON Binding Results](./results/summary_all_n100000000_c256_keep_json_rps.png)
+![JSON Binding Results](./results/2025-08-26/images/json_binding_rps.png)
 
 **Key Insights**:
 
 - API data processing performance
 - Serialization/deserialization efficiency
 - Validation overhead impact
+
+**Results**: [CSV Data](./results/2025-08-26/parts/summary_json.csv)
 
 </details>
 
@@ -182,13 +318,15 @@ Our comprehensive benchmarks reveal significant performance differences across f
 
 **Test**: Trailing wildcard route matching (`/files/*path`)
 
-![Wildcard Routing Results](./results/summary_all_n100000000_c256_keep_wildcard_rps.png)
+![Wildcard Routing Results](./results/2025-08-26/images/wildcard_routing_rps.png)
 
 **Key Insights**:
 
 - File serving performance
 - Catch-all route efficiency
 - Dynamic path handling
+
+**Results**: [CSV Data](./results/2025-08-26/parts/summary_wildcard.csv)
 
 </details>
 
@@ -197,13 +335,15 @@ Our comprehensive benchmarks reveal significant performance differences across f
 
 **Test**: Basic route group organization (`/api/v1/users`)
 
-![Route Groups Results](./results/summary_all_n100000000_c256_keep_groups_rps.png)
+![Route Groups Results](./results/2025-08-26/images/route_groups_rps.png)
 
 **Key Insights**:
 
 - API organization efficiency
 - Group routing overhead
 - Nested structure performance
+
+**Results**: [CSV Data](./results/2025-08-26/parts/summary_groups.csv)
 
 </details>
 
@@ -212,13 +352,15 @@ Our comprehensive benchmarks reveal significant performance differences across f
 
 **Test**: Complex nested route groups (`/g1/g2/.../g10/endpoint`)
 
-![Deep Route Groups Results](./results/summary_all_n100000000_c256_keep_deepgroups_rps.png)
+![Deep Route Groups Results](./results/2025-08-26/images/deep_route_groups_rps.png)
 
 **Key Insights**:
 
 - Complex routing hierarchy performance
 - Deep nesting overhead
 - Scalability under complex structures
+
+**Results**: [CSV Data](./results/2025-08-26/parts/summary_deepgroups.csv)
 
 </details>
 
@@ -227,13 +369,15 @@ Our comprehensive benchmarks reveal significant performance differences across f
 
 **Test**: Basic middleware processing (e.g., request logging)
 
-![Single Middleware Results](./results/summary_all_n100000000_c256_keep_middleware_rps.png)
+![Single Middleware Results](./results/2025-08-26/images/single_middleware_rps.png)
 
 **Key Insights**:
 
 - Middleware overhead analysis
 - Basic processing pipeline performance
 - Authentication/logging impact
+
+**Results**: [CSV Data](./results/2025-08-26/parts/summary_middleware.csv)
 
 </details>
 
@@ -242,13 +386,15 @@ Our comprehensive benchmarks reveal significant performance differences across f
 
 **Test**: Complex middleware chain with 10 sequential middlewares
 
-![Middleware Chain Results](./results/summary_all_n100000000_c256_keep_mw10_rps.png)
+![Middleware Chain Results](./results/2025-08-26/images/middleware_chain_rps.png)
 
 **Key Insights**:
 
 - Complex pipeline performance
 - Cumulative middleware overhead
 - Enterprise-grade processing chains
+
+**Results**: [CSV Data](./results/2025-08-26/parts/summary_mw10.csv)
 
 </details>
 
@@ -258,9 +404,11 @@ Our comprehensive benchmarks reveal significant performance differences across f
 
 | Framework     | Port     | Optimization        |
 | ------------- | -------- | ------------------- |
-| 🔥 **GoFlash** | `:18080` | Production mode     |
-| 🍸 **Gin**     | `:18081` | Release mode        |
-| 🕷️ **Fiber**   | `:18082` | Production settings |
+| 🔥 **GoFlash** | `:17780` | Production mode     |
+| 🍸 **Gin**     | `:17781` | Release mode        |
+| 🕷️ **Fiber**   | `:17782` | Production settings |
+| 📢 **Echo**    | `:17783` | Production mode     |
+| 🔗 **Chi**     | `:17784` | Release mode        |
 
 ## 🚀 Quick Start
 
@@ -269,7 +417,6 @@ Get up and running with the benchmark suite in minutes! Follow these step-by-ste
 ### 📋 Prerequisites
 
 - **Go 1.21+** installed and configured
-- **Python 3.8+** for visualization (optional)
 - **wrk** HTTP benchmarking tool
 - **macOS/Linux** environment (recommended)
 
@@ -288,12 +435,6 @@ brew install wrk
 sudo apt-get install wrk
 ```
 
-#### Install Python dependencies (for plotting)
-
-```bash
-pip3 install matplotlib pandas numpy
-```
-
 </details>
 
 ### 🏁 Quick Setup
@@ -301,8 +442,8 @@ pip3 install matplotlib pandas numpy
 #### 1️⃣ Build All Framework Servers
 
 ```bash
-# Build Flash, Gin, and Fiber servers
-./bin/build
+# Build all framework servers
+./benchmark build
 ```
 
 This command will:
@@ -311,78 +452,50 @@ This command will:
 - 🔨 Compile optimized production builds
 - 📁 Place executables in `build/` directory
 
-#### 2️⃣ Start the Benchmark Servers
-
-**Option A: Start all servers in background**
+#### 2️⃣ Run Performance Benchmarks
 
 ```bash
-./bin/start
-```
+# 🏆 High-Volume Load Testing (1M requests, 10 batches for statistical significance)
+go run ./cmd run --requests 1000000 --connections 100 --batches 10
 
-**Option B: Start servers manually in separate terminals**
+# ⏱️ Duration-Based Testing (1 minute per test scenario)
+go run ./cmd run --duration 1m --connections 50 --batches 3
 
-```bash
-# Terminal 1: GoFlash
-./build/flash
+# 🚀 Full benchmark suite (recommended for comprehensive analysis)
+go run ./cmd run --requests 10000 --connections 50 --batches 3
 
-# Terminal 2: Gin  
-./build/gin
+# ⚡ Quick test (faster execution for development)
+go run ./cmd run --requests 1000 --connections 10 --batches 1
 
-# Terminal 3: Fiber
-./build/fiber
-```
+# 🎯 Custom framework and scenario selection
+go run ./cmd run --duration 30s --frameworks flash,gin,gofiber --scenarios simple,json,param
 
-#### 3️⃣ Run Performance Benchmarks
-
-```bash
-# Full benchmark suite (recommended)
-./bin/run -n 3000000 -c 256 -k
-
-# Quick test (faster execution)
-./bin/run -n 100000 -c 128 -k
-
-# Custom configuration
-./bin/run -n <requests> -c <connections> -k
+# 📊 Specific test configuration examples
+go run ./cmd run --requests <requests> --connections <connections> --batches <batches>
+go run ./cmd run --duration <duration> --connections <connections> --batches <batches>
 ```
 
 **Parameters:**
 
-- `-n`: Total number of requests per scenario
-- `-c`: Concurrent connections
-- `-k`: Keep-alive connections (recommended)
+- `--requests`: Total number of requests per scenario (use `0` for duration-based testing)
+- `--duration`: Test duration per scenario (e.g., `30s`, `1m`, `5m`)
+- `--connections`: Concurrent connections
+- `--batches`: Number of test batches for statistical significance
+- `--frameworks`: Comma-separated list of frameworks to test (e.g., `flash,gin,gofiber`)
+- `--scenarios`: Comma-separated list of scenarios to run (e.g., `simple,json,param`)
 
-#### 4️⃣ Generate Visualizations
-
-**Install plotting dependencies (first time only):**
-
-```bash
-pip3 install matplotlib pandas numpy
-```
-
-**Generate individual charts:**
-
-```bash
-./bin/plot
-```
-
-**Generate comprehensive comparison chart:**
-
-```bash
-source .venv/bin/activate
-python3 bin/plot_benchmarks.py results/summary_all_n100000000_c256_keep.csv -o results/all_benchmarks.png
-```
-
-### 📊 Understanding Results
+#### 3️⃣ View Results
 
 After running benchmarks, you'll find detailed results in the `results/` directory:
 
 ```
 results/
-├── 📊 all_benchmarks.png              # Comprehensive comparison chart
-├── 📈 summary_*_rps.png               # Individual scenario charts  
-├── 📋 summary_*.csv                   # Raw performance data
-├── 🔍 parts/                          # Detailed breakdown data
-└── 📁 raw/                            # Individual test outputs
+├── 📊 2025-08-26/                    # Date-based results directory
+│   ├── 📈 summary.csv              # Comprehensive comparison data
+│   ├── 📋 parts/                   # Individual framework results
+│   ├── 🔍 raw/                     # Raw benchmark outputs
+│   └── 📁 images/                  # Generated charts
+└── 📁 previous-runs/               # Historical results
 ```
 
 ### ⚡ Performance Tips
@@ -393,15 +506,15 @@ results/
 #### For More Accurate Results
 
 1. **Close unnecessary applications** to reduce system noise
-2. **Run multiple iterations** and average results
+2. **Run multiple batches** for statistical significance
 3. **Use consistent system load** across test runs
 4. **Monitor system resources** during benchmarks
 
 #### Scaling Parameters
 
-- **Light testing**: `-n 100000 -c 64`
-- **Standard testing**: `-n 1000000 -c 256`
-- **Heavy testing**: `-n 10000000 -c 512`
+- **Light testing**: `--requests 1000 --connections 10`
+- **Standard testing**: `--requests 10000 --connections 50`
+- **Heavy testing**: `--requests 100000 --connections 100`
 
 #### System Tuning
 
@@ -423,9 +536,11 @@ ulimit -a
 
 | Framework     | Port    | Health Check | Base URL                 |
 | ------------- | ------- | ------------ | ------------------------ |
-| 🔥 **GoFlash** | `18080` | `GET /ping`  | `http://localhost:18080` |
-| 🍸 **Gin**     | `18081` | `GET /ping`  | `http://localhost:18081` |
-| 🕷️ **Fiber**   | `18082` | `GET /ping`  | `http://localhost:18082` |
+| 🔥 **GoFlash** | `17780` | `GET /ping`  | `http://localhost:17780` |
+| 🍸 **Gin**     | `17781` | `GET /ping`  | `http://localhost:17781` |
+| 🕷️ **Fiber**   | `17782` | `GET /ping`  | `http://localhost:17782` |
+| 📢 **Echo**    | `17783` | `GET /ping`  | `http://localhost:17783` |
+| 🔗 **Chi**     | `17784` | `GET /ping`  | `http://localhost:17784` |
 
 ### 📝 Available Endpoints
 
@@ -447,21 +562,21 @@ GET  /mw10/ping               # 10 middleware chain
 
 Customize benchmark execution with these parameters:
 
-| Parameter | Description             | Default   | Recommended Range |
-| --------- | ----------------------- | --------- | ----------------- |
-| `-n`      | Total requests per test | `3000000` | `100K - 10M`      |
-| `-c`      | Concurrent connections  | `256`     | `64 - 1024`       |
-| `-t`      | Test duration           | N/A       | Use `-n` instead  |
-| `-k`      | Keep-alive connections  | Enabled   | Always use        |
+| Parameter       | Description             | Default | Recommended Range |
+| --------------- | ----------------------- | ------- | ----------------- |
+| `--requests`    | Total requests per test | `10000` | `1K - 100K`       |
+| `--connections` | Concurrent connections  | `50`    | `10 - 200`        |
+| `--batches`     | Number of test batches  | `3`     | `1 - 10`          |
+| `--tool`        | Benchmark tool          | `wrk`   | `wrk` or `ab`     |
 
 ### 📊 Output Formats
 
 The benchmark suite generates multiple output formats:
 
-- **📈 PNG Charts**: Visual performance comparisons
-- **📋 CSV Data**: Raw performance metrics for analysis
+- **📈 CSV Data**: Raw performance metrics for analysis
 - **📊 Summary Reports**: Aggregated results across scenarios
 - **🔍 Detailed Logs**: Individual test execution details
+- **📁 Organized Structure**: Date-based result directories
 
 ---
 
@@ -469,17 +584,25 @@ The benchmark suite generates multiple output formats:
 
 ### 🏗️ Architecture Overview
 
-This benchmark suite is designed with modularity and accuracy in mind:
+This benchmark suite is designed with modularity, atomicity, and accuracy in mind:
 
 ```
-goflash-benchmarks/
-├── 🚀 flash/           # GoFlash implementation
-├── 🍸 gin/             # Gin framework implementation  
-├── 🕷️ gofiber/         # Fiber framework implementation
-├── 🔧 bin/             # Benchmark execution scripts
+go-web-benchmarks/
+├── 🚀 cmd/              # Command-line interface
+├── 🔧 internal/         # Core framework logic
+│   ├── config/         # Configuration management
+│   ├── progress/       # Progress tracking
+│   ├── runner/         # Benchmark execution
+│   └── types/          # Data structures
+├── 🏗️ frameworks/       # Framework implementations
+│   ├── flash/          # GoFlash implementation
+│   ├── gin/            # Gin framework implementation
+│   ├── gofiber/        # Fiber framework implementation
+│   ├── echo/           # Echo framework implementation
+│   └── chi/            # Chi framework implementation
 ├── 📊 results/         # Performance data and charts
-├── 📝 wrk/             # Load testing configurations
-└── 📋 logs/            # Server execution logs
+├── ⚙️ config.yaml      # YAML configuration
+└── 📋 README.md        # This documentation
 ```
 
 ### 🧪 Testing Methodology
@@ -489,8 +612,10 @@ Our approach ensures **fair and accurate comparisons**:
 1. **Equivalent Implementations**: Each endpoint performs identical operations across frameworks
 2. **Production Settings**: All servers run in optimized production mode
 3. **Isolated Processes**: Frameworks run in separate processes to prevent interference
-4. **Statistical Validity**: Multiple test runs ensure reliable results
+4. **Statistical Validity**: Multiple test batches ensure reliable results
 5. **Resource Monitoring**: System resource usage tracked during tests
+6. **Atomic Execution**: Tests are atomic and can be resumed from failures
+7. **Deterministic Results**: Consistent execution environment and parameters
 
 ### 🔍 Interpreting Results
 
@@ -507,3 +632,157 @@ Our approach ensures **fair and accurate comparisons**:
 - **Middleware Overhead**: Processing cost of request/response pipeline
 - **Memory Allocation**: Garbage collection and memory management impact
 - **Serialization Speed**: JSON encoding/decoding performance
+
+### 🚀 Advanced Features
+
+#### 📊 Comprehensive Benchmark Examples
+
+<details>
+<summary><strong>🎯 Production-Level Load Testing Examples</strong></summary>
+
+##### High-Volume Load Testing (1M Requests × 10 Batches)
+```bash
+# Ultimate stress test - 1 million requests per scenario, 10 statistical batches
+go run ./cmd run --requests 1000000 --connections 100 --batches 10
+
+# High-volume with all frameworks and scenarios (full comprehensive test)
+go run ./cmd run --requests 1000000 --connections 200 --batches 10 --frameworks flash,gin,gofiber,echo,chi --scenarios simple,param,context,json,wildcard,groups,deepgroups,middleware,mw10
+
+# Memory-intensive JSON processing test
+go run ./cmd run --requests 500000 --connections 50 --batches 5 --scenarios json
+```
+
+##### Duration-Based Testing (1 Minute Per Test)
+```bash
+# 1-minute duration tests with statistical significance
+go run ./cmd run --duration 1m --connections 50 --batches 3
+
+# Extended duration testing for stability analysis
+go run ./cmd run --duration 5m --connections 100 --batches 5
+
+# Quick 1-minute validation across all scenarios
+go run ./cmd run --duration 1m --connections 25 --batches 1 --scenarios simple,json,param
+```
+
+##### Scalability Testing
+```bash
+# Progressive connection scaling
+go run ./cmd run --duration 30s --connections 10 --batches 3    # Light load
+go run ./cmd run --duration 30s --connections 50 --batches 3    # Medium load  
+go run ./cmd run --duration 30s --connections 200 --batches 3   # Heavy load
+go run ./cmd run --duration 30s --connections 500 --batches 3   # Extreme load
+
+# Framework comparison under different loads
+go run ./cmd run --requests 100000 --connections 50 --frameworks flash,gin,gofiber
+go run ./cmd run --requests 100000 --connections 200 --frameworks flash,gin,gofiber
+```
+
+</details>
+
+#### Resume Capability
+
+The benchmark suite supports resuming from failed runs:
+
+```bash
+# Resume from last failed run
+./benchmark run --resume
+```
+
+#### Framework Filtering
+
+Test specific frameworks only:
+
+```bash
+# Test only GoFlash and Gin
+go run ./cmd run --frameworks flash,gin
+
+# Compare top 3 performers
+go run ./cmd run --duration 1m --frameworks flash,gin,gofiber --batches 5
+```
+
+#### Scenario Filtering
+
+Test specific scenarios only:
+
+```bash
+# Test only simple and JSON scenarios
+go run ./cmd run --scenarios simple,json
+
+# Focus on API-heavy scenarios
+go run ./cmd run --duration 1m --scenarios json,param,context --batches 3
+
+# Test routing performance
+go run ./cmd run --requests 50000 --scenarios simple,param,wildcard,groups,deepgroups
+```
+
+#### Custom Configuration
+
+Override configuration parameters:
+
+```bash
+# Use ApacheBench instead of wrk
+./benchmark run --tool ab
+
+# Custom test duration
+./benchmark run --duration 60s
+```
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions to improve the benchmark suite! Here's how you can help:
+
+### 🐛 Reporting Issues
+
+- **Bug Reports**: Use the GitHub issue tracker
+- **Feature Requests**: Suggest new frameworks or scenarios
+- **Performance Issues**: Report unexpected results
+
+### 🔧 Adding New Frameworks
+
+1. **Create Framework Directory**: Add implementation in `frameworks/`
+2. **Update Configuration**: Add framework to `config.yaml`
+3. **Implement Endpoints**: Ensure all test scenarios are covered
+4. **Test Thoroughly**: Run benchmarks to verify results
+
+### 📊 Adding New Scenarios
+
+1. **Define Scenario**: Add to `config.yaml` scenarios section
+2. **Implement Handlers**: Add endpoints to all frameworks
+3. **Update Documentation**: Document the new scenario
+4. **Test Validation**: Ensure consistent behavior across frameworks
+
+### 🧪 Running Tests
+
+```bash
+# Run all tests
+go test ./...
+
+# Run specific package tests
+go test ./internal/config
+go test ./internal/runner
+```
+
+### 📝 Code Style
+
+- Follow Go conventions and best practices
+- Add comprehensive documentation
+- Include unit tests for new functionality
+- Ensure atomic and deterministic behavior
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+**Made with ❤️ for the Go community**
+
+*Accurate, reproducible, and meaningful performance benchmarks*
+
+</div>

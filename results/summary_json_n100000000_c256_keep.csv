@@ -1,4 +1,0 @@
-scenario,framework,requests_per_sec,avg_ms,p50_ms,p90_ms,p99_ms,transfer_kbps
-json,flash,248512.70,1.908,0.733,5.139,14.163,28637.19
-json,gin,250514.37,1.977,0.722,5.379,15.119,28868.60
-json,gofiber,220173.35,4.078,0.519,12.035,49.570,25370.61

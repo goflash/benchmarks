@@ -1,4 +1,0 @@
-scenario,framework,requests_per_sec,avg_ms,p50_ms,p90_ms,p99_ms,transfer_kbps
-mw10,flash,249789.31,1.709,0.595,4.858,10.584,29271.05
-mw10,gin,239320.27,1.841,0.562,5.470,11.286,28045.31
-mw10,gofiber,212473.09,3.399,0.528,7.519,52.622,30086.15

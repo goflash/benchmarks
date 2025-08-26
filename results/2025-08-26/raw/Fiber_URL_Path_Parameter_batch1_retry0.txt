@@ -1,0 +1,8 @@
+Running 10s test @ http://127.0.0.1:17782/param/abc123
+  64 threads and 256 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     8.39ms   25.63ms 582.63ms   92.76%
+    Req/Sec     4.50k     4.57k   97.98k    94.23%
+  2861347 requests in 10.10s, 332.91MB read
+Requests/sec: 283202.23
+Transfer/sec:     32.95MB
